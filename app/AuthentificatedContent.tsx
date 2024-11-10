@@ -9,11 +9,9 @@ const AuthenticatedContent: React.FC<AuthenticatedContentProps> = async ({
   session,
 }: any) => {
   return (
-    <Container>
-      <LayoutHeader>
-        <LayoutTitle>Here we go</LayoutTitle>
-      </LayoutHeader>
-    </Container>
+    <LayoutHeader>
+      <LayoutTitle>Here we go</LayoutTitle>
+    </LayoutHeader>
   );
 };
 

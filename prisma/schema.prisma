@@ -57,4 +57,78 @@ model User {
   role          String?
   accounts      Account[]
   sessions      Session[]
+  levels        Level[]
+}
+
+model Level {
+  id          String      @id @default(cuid())
+  name        String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  creatorId   String
+  creator     User        @relation(fields: [creatorId], references: [id])
+  specialties Specialty[]
+
+  @@unique([name, creatorId])
+}
+
+model Specialty {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  levelId   String
+  level     Level    @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  courses   Course[]
+
+  @@unique([name, levelId])
+}
+
+model Course {
+  id          String    @id @default(cuid())
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  specialtyId String
+  specialty   Specialty @relation(fields: [specialtyId], references: [id], onDelete: Cascade)
+  chapters    Chapter[]
+
+  @@unique([name, specialtyId])
+}
+
+model Chapter {
+  id        String   @id @default(cuid())
+  name      String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons   Lesson[]
+
+  @@unique([name, courseId])
+}
+
+model Lesson {
+  id        String   @id @default(cuid())
+  name      String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  chapterId String
+  chapter   Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  images    Image[]
+
+  @@unique([name, chapterId])
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  url       String
+  key       String   @unique
+  filename  String
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
