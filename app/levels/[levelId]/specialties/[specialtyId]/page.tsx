@@ -27,6 +27,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Header } from "@/components/elements/Header";
 
 interface Props {
   params: { levelId: string; specialtyId: string };
@@ -42,73 +43,76 @@ export default async function CoursesPage({ params }: Props) {
   }
 
   return (
-    <Layout>
-      <LayoutHeader>
-        <Breadcrumb className="mt-3 mb-3">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/levels">Niveaux</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={`/levels/${params.levelId}`}>Spécialités</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{specialty.name}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <LayoutTitle>Spécialités - {specialty.name}</LayoutTitle>
-      </LayoutHeader>
-      <LayoutActions>
-        <Link href={`/levels/${params.levelId}`}>
-          <Button variant="outline">
-            <Undo2 className="mr-2 h-4 w-4" /> Retour aux spécialités
-          </Button>
-        </Link>
-      </LayoutActions>
-      <LayoutContent>
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {courses?.map((course) => (
-              <Card
-                key={course.id}
-                className="transition-all duration-300 hover:shadow-lg"
-              >
-                <CardHeader>
-                  <CardTitle className="text-xl font-semibold flex items-center">
-                    {course.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {course.chapters.length} chapitres disponibles
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Link
-                    href={`/levels/${params.levelId}/specialties/${params.specialtyId}/courses/${course.id}`}
-                    className="w-full"
-                  >
-                    <Button className="w-full transition-all duration-300 hover:bg-primary-dark">
-                      Voir les chapitres
-                      <ChevronRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
+    <>
+      <Header />
+      <Layout>
+        <LayoutHeader>
+          <Breadcrumb className="mt-3 mb-3">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/levels">Niveaux</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/levels/${params.levelId}`}>Spécialités</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{specialty.name}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <LayoutTitle>Spécialités - {specialty.name}</LayoutTitle>
+        </LayoutHeader>
+        <LayoutActions>
+          <Link href={`/levels/${params.levelId}`}>
+            <Button variant="outline">
+              <Undo2 className="mr-2 h-4 w-4" /> Retour aux spécialités
+            </Button>
+          </Link>
+        </LayoutActions>
+        <LayoutContent>
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {courses?.map((course) => (
+                <Card
+                  key={course.id}
+                  className="transition-all duration-300 hover:shadow-lg"
+                >
+                  <CardHeader>
+                    <CardTitle className="text-xl font-semibold flex items-center">
+                      {course.name}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {course.chapters.length} chapitres disponibles
+                    </p>
+                  </CardContent>
+                  <CardFooter>
+                    <Link
+                      href={`/levels/${params.levelId}/specialties/${params.specialtyId}/courses/${course.id}`}
+                      className="w-full"
+                    >
+                      <Button className="w-full transition-all duration-300 hover:bg-primary-dark">
+                        Voir les chapitres
+                        <ChevronRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+            <div className="flex justify-center mt-8">
+              <NewCourseDialog specialtyId={params.specialtyId} />
+            </div>
           </div>
-          <div className="flex justify-center mt-8">
-            <NewCourseDialog specialtyId={params.specialtyId} />
-          </div>
-        </div>
-      </LayoutContent>
-    </Layout>
+        </LayoutContent>
+      </Layout>
+    </>
   );
 }

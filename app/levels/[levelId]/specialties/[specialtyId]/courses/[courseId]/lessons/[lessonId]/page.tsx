@@ -29,6 +29,7 @@ import {
 import dynamic from "next/dynamic";
 import { LessonImage } from "./types";
 import { Button } from "@/components/ui/button";
+import { Header } from "@/components/elements/Header";
 
 const ImageUploader = dynamic(() => import("./ImageUploader"), {
   ssr: false,
@@ -93,82 +94,85 @@ export default async function LessonPage({ params }: Props) {
   }
 
   return (
-    <Layout>
-      <LayoutHeader>
-        <Breadcrumb className="mt-3 mb-3">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/levels">
-                  <GraduationCap className="h-4 w-4 mr-2 inline-block" />
-                  Niveaux
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link
-                  href={`/levels/${params.levelId}/specialties/${params.specialtyId}`}
-                >
-                  <Layers className="h-4 w-4 mr-2 inline-block" />
-                  Cours
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link
-                  href={`/levels/${params.levelId}/specialties/${params.specialtyId}/courses/${params.courseId}`}
-                >
-                  <BookOpen className="h-4 w-4 mr-2 inline-block" />
-                  {lesson.chapter.course.name}
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                <FileText className="h-4 w-4 mr-2 inline-block" />
-                {lesson.name}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <LayoutTitle>{lesson.name}</LayoutTitle>
-      </LayoutHeader>
-      <LayoutActions>
-        <Link
-          href={`/levels/${params.levelId}/specialties/${params.specialtyId}/courses/${params.courseId}`}
-        >
-          <Button variant="outline">
-            <Undo2 className="mr-2 h-4 w-4" /> Retour aux cours
-          </Button>
-        </Link>
-      </LayoutActions>
-      <LayoutContent>
-        <div className="space-y-6">
-          <div className="mb-6">
-            <div className="flex justify-between items-center">
-              <DeleteLessonButton
-                lessonId={lesson.id}
-                courseId={params.courseId}
-              />
+    <>
+      <Header />
+      <Layout>
+        <LayoutHeader>
+          <Breadcrumb className="mt-3 mb-3">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/levels">
+                    <GraduationCap className="h-4 w-4 mr-2 inline-block" />
+                    Niveaux
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link
+                    href={`/levels/${params.levelId}/specialties/${params.specialtyId}`}
+                  >
+                    <Layers className="h-4 w-4 mr-2 inline-block" />
+                    Cours
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link
+                    href={`/levels/${params.levelId}/specialties/${params.specialtyId}/courses/${params.courseId}`}
+                  >
+                    <BookOpen className="h-4 w-4 mr-2 inline-block" />
+                    {lesson.chapter.course.name}
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>
+                  <FileText className="h-4 w-4 mr-2 inline-block" />
+                  {lesson.name}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <LayoutTitle>{lesson.name}</LayoutTitle>
+        </LayoutHeader>
+        <LayoutActions>
+          <Link
+            href={`/levels/${params.levelId}/specialties/${params.specialtyId}/courses/${params.courseId}`}
+          >
+            <Button variant="outline">
+              <Undo2 className="mr-2 h-4 w-4" /> Retour aux cours
+            </Button>
+          </Link>
+        </LayoutActions>
+        <LayoutContent>
+          <div className="space-y-6 mb-10">
+            <div className="mb-6">
+              <div className="flex justify-between items-center">
+                <DeleteLessonButton
+                  lessonId={lesson.id}
+                  courseId={params.courseId}
+                />
+              </div>
             </div>
-          </div>
 
-          <ImageUploader
-            lessonId={params.lessonId}
-            levelId={params.levelId}
-            specialtyId={params.specialtyId}
-            courseId={params.courseId}
-            chapterId={params.chapterId}
-            initialImages={lesson.images}
-          />
-        </div>
-      </LayoutContent>
-    </Layout>
+            <ImageUploader
+              lessonId={params.lessonId}
+              levelId={params.levelId}
+              specialtyId={params.specialtyId}
+              courseId={params.courseId}
+              chapterId={params.chapterId}
+              initialImages={lesson.images}
+            />
+          </div>
+        </LayoutContent>
+      </Layout>
+    </>
   );
 }
 

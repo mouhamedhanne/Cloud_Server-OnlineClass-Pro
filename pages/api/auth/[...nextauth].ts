@@ -11,7 +11,7 @@ export const authOptions: AuthOptions = {
   },
   adapter: FixedPrismaAdapter,
   theme: {
-    logo: "/galsenext.png",
+    logo: "/onlineclass.svg",
   },
   providers: [
     GoogleProvider({

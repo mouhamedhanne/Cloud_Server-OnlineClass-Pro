@@ -84,21 +84,9 @@ export const UserNav = (props: UserNavProps) => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem className="hover:cursor-pointer" asChild>
-              <Link href="/" className="flex items-center">
+              <Link href="/levels" className="flex items-center">
                 <Home className="w-4 h-4 mr-3 text-muted-foreground" />
-                Home
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="hover:cursor-pointer" asChild>
-              <Link href="/write" className="flex items-center">
-                <BookOpenText className="w-4 h-4 mr-3 text-muted-foreground" />
-                Write
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="hover:cursor-pointer" asChild>
-              <Link href="/profile" className="flex items-center">
-                <User className="w-4 h-4 mr-3 text-muted-foreground" />
-                Profile
+                Niveau
               </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -106,19 +94,19 @@ export const UserNav = (props: UserNavProps) => {
           <AlertDialogTrigger asChild>
             <DropdownMenuItem className="hover:cursor-pointer">
               <LogOut className="w-4 h-4 mr-3 text-muted-foreground" />
-              Sign out
+              Se déconnecter
             </DropdownMenuItem>
           </AlertDialogTrigger>
         </DropdownMenuContent>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Are you sure you want to logout ?
+              Etes-vous sûr de vouloir vous déconnecter ?
             </AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel asChild>
-              <Button variant="secondary">Cancel</Button>
+              <Button variant="secondary">Annuler</Button>
             </AlertDialogCancel>
             <Button
               variant="destructive"
@@ -132,7 +120,7 @@ export const UserNav = (props: UserNavProps) => {
               ) : (
                 <LogOut className="mr-2" size={12} />
               )}
-              Logout
+              Déconnexion
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
