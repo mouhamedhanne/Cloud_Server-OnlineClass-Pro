@@ -84,6 +84,7 @@ export default async function ChaptersPage({ params }: Props) {
                     <Link
                       key={lesson.id}
                       href={`/levels/${params.levelId}/specialties/${params.specialtyId}/courses/${params.courseId}/chapters/${chapter.id}/lessons/${lesson.id}`}
+                      className="pb-2"
                     >
                       <Card className="hover:bg-gray-50 transition-colors">
                         <CardContent className="p-4 flex items-center gap-3">
