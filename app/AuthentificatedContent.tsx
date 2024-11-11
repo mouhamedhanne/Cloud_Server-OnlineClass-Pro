@@ -11,6 +11,7 @@ const AuthenticatedContent: React.FC<AuthenticatedContentProps> = async ({
   return (
     <LayoutHeader>
       <LayoutTitle>Here we go</LayoutTitle>
+      <Link href="/levels">Levels</Link>
     </LayoutHeader>
   );
 };

@@ -10,6 +10,15 @@ import {
   LayoutHeader,
   LayoutTitle,
 } from "@/src/components/Layout/Layout";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { ChevronRight } from "lucide-react";
 
 export default async function LevelsPage() {
   const { data: levels } = await getLevels();
@@ -17,26 +26,48 @@ export default async function LevelsPage() {
   return (
     <Layout>
       <LayoutHeader>
+        <Breadcrumb className="mt-3 ml-3">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/admin">Admin</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Cours</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <LayoutTitle>Niveaux d'études</LayoutTitle>
       </LayoutHeader>
       <LayoutActions>
         <NewLevelDialog />
       </LayoutActions>
       <LayoutContent>
-        <div className="container mx-auto p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {levels?.map((level) => (
-              <Card key={level.id}>
+              <Card
+                key={level.id}
+                className="transition-all duration-300 hover:shadow-lg"
+              >
                 <CardHeader>
-                  <CardTitle>{level.name}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">
+                    {level.name}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex justify-between">
-                    <p className="text-sm">
-                      {level.specialties.length} spécialités
+                  <div className="flex flex-col space-y-4">
+                    <p className="text-sm text-gray-600">
+                      {level.specialties.length} spécialité
+                      {level.specialties.length > 1 ? "s" : ""}
                     </p>
-                    <Link href={`/levels/${level.id}`}>
-                      <Button>Voir les spécialités</Button>
+                    <Link href={`/levels/${level.id}`} className="w-full">
+                      <Button className="w-full transition-all duration-300 hover:bg-primary-dark">
+                        Voir les spécialités
+                        <ChevronRight className="ml-2 h-4 w-4" />
+                      </Button>
                     </Link>
                   </div>
                 </CardContent>

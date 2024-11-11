@@ -12,7 +12,15 @@ import {
 } from "@/src/components/Layout/Layout";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Undo2 } from "lucide-react";
+import { ChevronRight, Undo2 } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 interface Props {
   params: { levelId: string };
@@ -30,43 +38,64 @@ export default async function SpecialtiesPage({ params }: Props) {
   return (
     <Layout>
       <LayoutHeader>
-        <LayoutTitle> Level - {level.name}</LayoutTitle>
+        <Breadcrumb className="mt-3 mb-3">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={`/levels`}>Niveaux</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage> {level.name}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <LayoutTitle>{level.name} - Spécialités</LayoutTitle>
       </LayoutHeader>
       <LayoutActions>
         <Link href="/levels">
-          <Button>
+          <Button variant="outline">
             <Undo2 className="mr-2 h-4 w-4" /> Retour aux niveaux
           </Button>
         </Link>
       </LayoutActions>
       <LayoutContent>
-        <div className="">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h1 className="text-3xl font-bold mt-2"></h1>
-            </div>
-            <NewSpecialtyDialog levelId={params.levelId} />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {specialties?.map((specialty) => (
-              <Card key={specialty.id}>
+              <Card
+                key={specialty.id}
+                className="transition-all duration-300 hover:shadow-lg"
+              >
                 <CardHeader>
-                  <CardTitle>{specialty.name}</CardTitle>
+                  <CardTitle className="text-xl font-semibold">
+                    {specialty.name}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex justify-between">
-                    <p className="text-sm">{specialty.courses.length} cours</p>
+                  <div className="flex flex-col space-y-4">
+                    <p className="text-sm text-gray-600">
+                      {specialty.courses.length} cours
+                    </p>
                     <Link
                       href={`/levels/${params.levelId}/specialties/${specialty.id}`}
+                      className="w-full"
                     >
-                      <Button>Voir les cours</Button>
+                      <Button className="w-full transition-all duration-300 hover:bg-primary-dark">
+                        Voir les cours
+                        <ChevronRight className="ml-2 h-4 w-4" />
+                      </Button>
                     </Link>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+        </div>
+        <div className="flex justify-center mt-8">
+          <NewSpecialtyDialog levelId={params.levelId} />
         </div>
       </LayoutContent>
     </Layout>
