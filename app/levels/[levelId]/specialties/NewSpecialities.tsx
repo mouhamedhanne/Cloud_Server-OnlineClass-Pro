@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createSpecialty } from "./specialities.action";
 import { PlusCircle } from "lucide-react";
+import { toast } from "sonner";
 
 export function NewSpecialtyDialog({ levelId }: { levelId: string }) {
   const [open, setOpen] = useState(false);
@@ -30,6 +31,7 @@ export function NewSpecialtyDialog({ levelId }: { levelId: string }) {
     });
 
     if (result.success) {
+      toast.success("Spécialité créer avec succès");
       setOpen(false);
       router.refresh();
     }

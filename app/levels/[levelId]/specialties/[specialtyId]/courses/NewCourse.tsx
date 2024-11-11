@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createCourse } from "./courses.actions";
 import { PlusCircle } from "lucide-react";
+import { toast } from "sonner";
 
 export function NewCourseDialog({ specialtyId }: { specialtyId: string }) {
   const [open, setOpen] = useState(false);
@@ -28,6 +29,7 @@ export function NewCourseDialog({ specialtyId }: { specialtyId: string }) {
     });
 
     if (result.success) {
+      toast.success("Cours créer avec succès");
       setOpen(false);
       router.refresh();
     }

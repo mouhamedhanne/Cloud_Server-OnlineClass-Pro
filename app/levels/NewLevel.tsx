@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createLevel } from "./levels.action";
 import { PlusCircle } from "lucide-react";
+import { toast } from "sonner";
 
 export function NewLevelDialog() {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,7 @@ export function NewLevelDialog() {
 
     const result = await createLevel({ name });
     if (result.success) {
+      toast.success("Niveau créer avec succès");
       setOpen(false);
       router.refresh();
     }
