@@ -103,7 +103,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       if (!response.ok) throw new Error("Failed to delete image");
 
       setImages((prev) => prev.filter((img) => img.id !== imageId));
-      toast.success("L'image a été supprimée avec succès de la leçon.");
+      toast.success("L'image a été supprimée avec succès.");
     } catch (error) {
       console.error("Delete failed:", error);
       toast.error(

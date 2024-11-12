@@ -16,6 +16,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { deleteLesson } from "../lessons.action";
+import { deleteLessonWithContent } from "../../../actions/delete.action";
+import { toast } from "sonner";
 
 interface DeleteLessonButtonProps {
   lessonId: string;
@@ -32,8 +34,9 @@ export function DeleteLessonButton({
   async function handleDelete() {
     setIsDeleting(true);
     try {
-      const result = await deleteLesson(lessonId);
+      const result = await deleteLessonWithContent(lessonId);
       if (result.success) {
+        toast.success("Leçons supprimer");
         router.push(`/courses/${courseId}`);
         router.refresh();
       }

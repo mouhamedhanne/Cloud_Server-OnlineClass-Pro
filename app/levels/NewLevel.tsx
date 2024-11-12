@@ -12,24 +12,31 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { createLevel } from "./levels.action";
-import { PlusCircle } from "lucide-react";
+import { Loader2, PlusCircle } from "lucide-react";
 import { toast } from "sonner";
 
 export function NewLevelDialog() {
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
   async function handleSubmit(formData: FormData) {
-    const name = formData.get("name") as string;
-    const description = formData.get("description") as string;
+    try {
+      setIsLoading(true);
+      const name = formData.get("name") as string;
 
-    const result = await createLevel({ name });
-    if (result.success) {
-      toast.success("Niveau créer avec succès");
-      setOpen(false);
-      router.refresh();
+      const result = await createLevel({ name });
+      if (result.success) {
+        toast.success("Niveau créer avec succès");
+        setOpen(false);
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Erreur lors de la création du niveau", error);
+      toast.error("Échec de la création du niveau");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -50,7 +57,9 @@ export function NewLevelDialog() {
             <Label htmlFor="name">Nom du niveau</Label>
             <Input id="name" name="name" required />
           </div>
-          <Button type="submit">Créer</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? <Loader2 className="mr-2 h-4 w-4" /> : ""} Créer
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

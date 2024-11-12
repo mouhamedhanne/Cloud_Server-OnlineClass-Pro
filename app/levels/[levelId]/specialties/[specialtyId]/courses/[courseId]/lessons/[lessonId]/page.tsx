@@ -152,7 +152,8 @@ export default async function LessonPage({ params }: Props) {
         </LayoutActions>
         <LayoutContent>
           <div className="space-y-6 mb-10">
-            <div className="mb-6">
+          {/**
+           *   <div className="mb-6">
               <div className="flex justify-between items-center">
                 <DeleteLessonButton
                   lessonId={lesson.id}
@@ -160,6 +161,7 @@ export default async function LessonPage({ params }: Props) {
                 />
               </div>
             </div>
+           */}
 
             <ImageUploader
               lessonId={params.lessonId}

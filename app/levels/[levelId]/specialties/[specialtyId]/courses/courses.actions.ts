@@ -14,7 +14,6 @@ export async function createCourse({
   const session = await getRequiredAuthSession();
 
   try {
-    // Verify specialty belongs to user
     const specialty = await prisma.specialty.findFirst({
       where: {
         id: specialtyId,
