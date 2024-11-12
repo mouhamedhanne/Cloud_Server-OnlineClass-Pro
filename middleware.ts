@@ -10,12 +10,16 @@ export default withAuth({
           return token?.role === "admin";
         }
       }
-
-      return true;
+      if (req.nextUrl.pathname.startsWith("/"))
+        return token?.role === "admin";
+      
+      return !!token;
     },
   },
 });
-
 export const config = {
-  matcher: ["/levels/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/:path*",
+  ],
 };
