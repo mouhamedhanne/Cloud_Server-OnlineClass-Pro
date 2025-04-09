@@ -80,6 +80,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       "image/jpeg": [],
       "image/png": [],
       "image/webp": [],
+      "image/svg": [],
     },
     maxSize: 5000000,
   });
@@ -130,7 +131,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 : "Glissez-déposez des images ici, ou cliquez pour sélectionner"}
             </p>
             <p className="text-sm text-gray-500 mt-1">
-              JPG, PNG, WebP jusqu'à 5MB
+              JPG, PNG, WebP, svg jusqu'à 5MB
             </p>
           </div>
         </CardContent>
